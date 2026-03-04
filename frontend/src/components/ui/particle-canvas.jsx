@@ -1,49 +1,14 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-
-// --- Types ---
-
-interface Particle {
-  x: number;
-  y: number;
-  originX: number;
-  originY: number;
-  vx: number;
-  vy: number;
-  size: number;
-  color: string;
-  angle: number;
-}
-
-interface BackgroundParticle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  alpha: number;
-  phase: number;
-}
-
-interface MouseState {
-  x: number;
-  y: number;
-  isActive: boolean;
-}
+import React, { useEffect, useRef, useCallback } from 'react';
 
 // --- Configuration Constants ---
-
-const PARTICLE_DENSITY = 0.00012;
-const BG_PARTICLE_DENSITY = 0.00004;
+const PARTICLE_DENSITY = 0.00015;
+const BG_PARTICLE_DENSITY = 0.00008;
 const MOUSE_RADIUS = 180;
 const RETURN_SPEED = 0.08;
 const DAMPING = 0.90;
 const REPULSION_STRENGTH = 1.2;
 
-// --- Helper Functions ---
-
 const randomRange = (min, max) => Math.random() * (max - min) + min;
-
-// --- Component ---
 
 export const ParticleCanvas = ({ accentColor = '#4285F4' }) => {
   const canvasRef = useRef(null);
@@ -53,7 +18,6 @@ export const ParticleCanvas = ({ accentColor = '#4285F4' }) => {
   const backgroundParticlesRef = useRef([]);
   const mouseRef = useRef({ x: -1000, y: -1000, isActive: false });
   const frameIdRef = useRef(0);
-  const lastTimeRef = useRef(0);
 
   // Initialize Particles
   const initParticles = useCallback((width, height) => {
@@ -69,15 +33,17 @@ export const ParticleCanvas = ({ accentColor = '#4285F4' }) => {
         y: y,
         originX: x,
         originY: y,
-        vx: 0,
-        vy: 0,
-        size: randomRange(1, 2.5), 
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: randomRange(1.5, 3), 
         color: Math.random() > 0.85 ? accentColor : '#ffffff', 
         angle: Math.random() * Math.PI * 2,
+        speed: randomRange(0.2, 0.8),
       });
     }
     particlesRef.current = newParticles;
 
+    // Background particles - more of them for a starfield effect
     const bgCount = Math.floor(width * height * BG_PARTICLE_DENSITY);
     const newBgParticles = [];
     
@@ -85,11 +51,14 @@ export const ParticleCanvas = ({ accentColor = '#4285F4' }) => {
       newBgParticles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: (Math.random() - 0.5) * 0.2,
-        size: randomRange(0.5, 1.5),
-        alpha: randomRange(0.1, 0.4),
-        phase: Math.random() * Math.PI * 2
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: randomRange(0.5, 2),
+        alpha: randomRange(0.2, 0.8),
+        phase: Math.random() * Math.PI * 2,
+        twinkleSpeed: randomRange(0.002, 0.008),
+        driftAngle: Math.random() * Math.PI * 2,
+        driftSpeed: randomRange(0.1, 0.4),
       });
     }
     backgroundParticlesRef.current = newBgParticles;
@@ -102,51 +71,64 @@ export const ParticleCanvas = ({ accentColor = '#4285F4' }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    lastTimeRef.current = time;
+    const width = canvas.width / (window.devicePixelRatio || 1);
+    const height = canvas.height / (window.devicePixelRatio || 1);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Pulsating Radial Glow
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const pulseSpeed = 0.0008;
-    const pulseOpacity = Math.sin(time * pulseSpeed) * 0.035 + 0.085; 
+    // Dynamic Pulsating Radial Glow
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const pulseOpacity = Math.sin(time * 0.001) * 0.04 + 0.08; 
     
     const gradient = ctx.createRadialGradient(
         centerX, centerY, 0, 
-        centerX, centerY, Math.max(canvas.width, canvas.height) * 0.7
+        centerX, centerY, Math.max(width, height) * 0.8
     );
     gradient.addColorStop(0, `rgba(66, 133, 244, ${pulseOpacity})`);
+    gradient.addColorStop(0.5, `rgba(66, 133, 244, ${pulseOpacity * 0.3})`);
     gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
     
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, width, height);
 
-    // Background Particles
+    // Background Particles (Animated Stars)
     const bgParticles = backgroundParticlesRef.current;
-    ctx.fillStyle = "#ffffff";
     
     for (let i = 0; i < bgParticles.length; i++) {
       const p = bgParticles[i];
+      
+      // Drift movement
+      p.driftAngle += 0.001;
+      p.x += Math.cos(p.driftAngle) * p.driftSpeed;
+      p.y += Math.sin(p.driftAngle) * p.driftSpeed;
+      
+      // Add slight random movement
       p.x += p.vx;
       p.y += p.vy;
       
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width) p.x = 0;
-      if (p.y < 0) p.y = canvas.height;
-      if (p.y > canvas.height) p.y = 0;
+      // Wrap around screen
+      if (p.x < -10) p.x = width + 10;
+      if (p.x > width + 10) p.x = -10;
+      if (p.y < -10) p.y = height + 10;
+      if (p.y > height + 10) p.y = -10;
 
-      const twinkle = Math.sin(time * 0.002 + p.phase) * 0.5 + 0.5;
-      const currentAlpha = p.alpha * (0.3 + 0.7 * twinkle);
+      // Dynamic twinkle effect
+      const twinkle = Math.sin(time * p.twinkleSpeed + p.phase);
+      const currentAlpha = p.alpha * (0.3 + 0.7 * ((twinkle + 1) / 2));
+      
+      // Size pulse
+      const sizePulse = 1 + Math.sin(time * 0.003 + p.phase) * 0.3;
 
       ctx.globalAlpha = currentAlpha;
+      ctx.fillStyle = Math.random() > 0.98 ? '#4285F4' : '#ffffff';
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, p.size * sizePulse, 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.globalAlpha = 1.0;
 
-    // Main Foreground Physics
+    // Main Foreground Particles
     const particles = particlesRef.current;
     const mouse = mouseRef.current;
 
@@ -172,9 +154,14 @@ export const ParticleCanvas = ({ accentColor = '#4285F4' }) => {
       
       p.vx += springDx * RETURN_SPEED;
       p.vy += springDy * RETURN_SPEED;
+      
+      // Add organic oscillation
+      p.angle += 0.02;
+      p.vx += Math.sin(p.angle) * 0.05;
+      p.vy += Math.cos(p.angle) * 0.05;
     }
 
-    // Collision Detection
+    // Collision Detection (simplified for performance)
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const p1 = particles[i];
@@ -183,42 +170,30 @@ export const ParticleCanvas = ({ accentColor = '#4285F4' }) => {
         const dx = p2.x - p1.x;
         const dy = p2.y - p1.y;
         const distSq = dx * dx + dy * dy;
-        const minDist = p1.size + p2.size;
+        const minDist = (p1.size + p2.size) * 1.5;
 
-        if (distSq < minDist * minDist) {
+        if (distSq < minDist * minDist && distSq > 0.01) {
           const dist = Math.sqrt(distSq);
-          
-          if (dist > 0.01) {
-            const nx = dx / dist;
-            const ny = dy / dist;
+          const nx = dx / dist;
+          const ny = dy / dist;
 
-            const overlap = minDist - dist;
-            const pushX = nx * overlap * 0.5;
-            const pushY = ny * overlap * 0.5;
+          const overlap = minDist - dist;
+          p1.x -= nx * overlap * 0.3;
+          p1.y -= ny * overlap * 0.3;
+          p2.x += nx * overlap * 0.3;
+          p2.y += ny * overlap * 0.3;
 
-            p1.x -= pushX;
-            p1.y -= pushY;
-            p2.x += pushX;
-            p2.y += pushY;
+          const dvx = p1.vx - p2.vx;
+          const dvy = p1.vy - p2.vy;
+          const velocityAlongNormal = dvx * nx + dvy * ny;
 
-            const dvx = p1.vx - p2.vx;
-            const dvy = p1.vy - p2.vy;
-            const velocityAlongNormal = dvx * nx + dvy * ny;
-
-            if (velocityAlongNormal > 0) {
-              const m1 = p1.size;
-              const m2 = p2.size;
-              const restitution = 0.85;
-              const impulseMagnitude = (-(1 + restitution) * velocityAlongNormal) / (1/m1 + 1/m2);
-
-              const impulseX = impulseMagnitude * nx;
-              const impulseY = impulseMagnitude * ny;
-
-              p1.vx += impulseX / m1;
-              p1.vy += impulseY / m1;
-              p2.vx -= impulseX / m2;
-              p2.vy -= impulseY / m2;
-            }
+          if (velocityAlongNormal > 0) {
+            const restitution = 0.7;
+            const impulse = velocityAlongNormal * restitution;
+            p1.vx -= impulse * nx * 0.5;
+            p1.vy -= impulse * ny * 0.5;
+            p2.vx += impulse * nx * 0.5;
+            p2.vy += impulse * ny * 0.5;
           }
         }
       }
@@ -234,16 +209,26 @@ export const ParticleCanvas = ({ accentColor = '#4285F4' }) => {
       p.x += p.vx;
       p.y += p.vy;
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      
       const velocity = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-      const opacity = Math.min(0.3 + velocity * 0.1, 1); 
-      
+      const opacity = Math.min(0.4 + velocity * 0.15, 1); 
+      const glowSize = p.size * (1 + velocity * 0.2);
+
+      // Glow effect
+      if (velocity > 0.5) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, glowSize * 2, 0, Math.PI * 2);
+        ctx.fillStyle = p.color === '#ffffff' 
+          ? `rgba(255, 255, 255, ${opacity * 0.1})` 
+          : `rgba(66, 133, 244, ${opacity * 0.2})`;
+        ctx.fill();
+      }
+
+      // Main particle
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
       ctx.fillStyle = p.color === '#ffffff' 
         ? `rgba(255, 255, 255, ${opacity})` 
         : p.color;
-      
       ctx.fill();
     }
 
