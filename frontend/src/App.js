@@ -9,6 +9,7 @@ import { Input } from "./components/ui/input";
 import { Textarea } from "./components/ui/textarea";
 import { Toaster, toast } from "sonner";
 import { ParticleCanvas } from "./components/ui/particle-canvas";
+import { ImageReveal, SingleImageCard } from "./components/ui/image-tiles";
 import AgentsPage from "./AgentsPage";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
