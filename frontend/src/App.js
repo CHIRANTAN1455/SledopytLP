@@ -418,7 +418,7 @@ const ServicesSection = () => {
 // Team Section
 const TeamSection = () => {
   return (
-    <section id="team" className="py-24 md:py-32 bg-black relative" data-testid="team-section">
+    <section id="team" className="py-24 md:py-32 bg-black relative overflow-hidden" data-testid="team-section">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div 
           className="text-center mb-16"
@@ -436,35 +436,39 @@ const TeamSection = () => {
           </p>
         </motion.div>
 
-        <motion.div 
-          className="flex flex-wrap justify-center gap-8 md:gap-12"
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-        >
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={member.name}
-              className="text-center group"
-              variants={fadeInUp}
-              data-testid={`team-member-${index}`}
-            >
-              <div className="relative mb-4">
-                <div className="w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-white/20 group-hover:border-blue-500 transition-colors duration-300">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="absolute inset-0 rounded-full bg-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-1">{member.name}</h3>
-              <p className="text-sm text-blue-400">{member.role}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Image Tiles Layout */}
+        <div className="flex flex-col items-center gap-16">
+          {/* First row - 3 founders with ImageReveal effect */}
+          <div className="flex justify-center">
+            <ImageReveal
+              leftImage={teamMembers[0].image}
+              leftName={teamMembers[0].name}
+              leftRole={teamMembers[0].role}
+              middleImage={teamMembers[1].image}
+              middleName={teamMembers[1].name}
+              middleRole={teamMembers[1].role}
+              rightImage={teamMembers[2].image}
+              rightName={teamMembers[2].name}
+              rightRole={teamMembers[2].role}
+            />
+          </div>
+
+          {/* Second row - remaining team members */}
+          <div className="flex flex-wrap justify-center gap-8 mt-8">
+            <SingleImageCard
+              image={teamMembers[3].image}
+              name={teamMembers[3].name}
+              role={teamMembers[3].role}
+              delay={0.1}
+            />
+            <SingleImageCard
+              image={teamMembers[4].image}
+              name={teamMembers[4].name}
+              role={teamMembers[4].role}
+              delay={0.2}
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
