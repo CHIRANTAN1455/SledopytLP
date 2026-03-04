@@ -436,38 +436,17 @@ const TeamSection = () => {
           </p>
         </motion.div>
 
-        {/* Image Tiles Layout */}
-        <div className="flex flex-col items-center gap-16">
-          {/* First row - 3 founders with ImageReveal effect */}
-          <div className="flex justify-center">
-            <ImageReveal
-              leftImage={teamMembers[0].image}
-              leftName={teamMembers[0].name}
-              leftRole={teamMembers[0].role}
-              middleImage={teamMembers[1].image}
-              middleName={teamMembers[1].name}
-              middleRole={teamMembers[1].role}
-              rightImage={teamMembers[2].image}
-              rightName={teamMembers[2].name}
-              rightRole={teamMembers[2].role}
-            />
-          </div>
-
-          {/* Second row - remaining team members */}
-          <div className="flex flex-wrap justify-center gap-8 mt-8">
+        {/* All team members in one line */}
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+          {teamMembers.map((member, index) => (
             <SingleImageCard
-              image={teamMembers[3].image}
-              name={teamMembers[3].name}
-              role={teamMembers[3].role}
-              delay={0.1}
+              key={member.name}
+              image={member.image}
+              name={member.name}
+              role={member.role}
+              delay={index * 0.1}
             />
-            <SingleImageCard
-              image={teamMembers[4].image}
-              name={teamMembers[4].name}
-              role={teamMembers[4].role}
-              delay={0.2}
-            />
-          </div>
+          ))}
         </div>
       </div>
     </section>
