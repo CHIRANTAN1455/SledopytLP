@@ -455,35 +455,6 @@ const TeamSection = () => {
 
 // Contact Section
 const ContactSection = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      await axios.post(`${API}/contact`, formData);
-      toast.success('Message sent successfully! We\'ll get back to you soon.');
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      toast.error('Failed to send message. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
   return (
     <section id="contact" className="py-24 md:py-32 bg-slate-950 relative" data-testid="contact-section">
       <div className="max-w-7xl mx-auto px-6">
@@ -534,7 +505,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Call Us</h4>
-                  <p className="text-white/50">+971 2 XXX XXXX</p>
+                  <p className="text-white/50">+971 509482406</p>
                 </div>
               </div>
             </div>
@@ -596,7 +567,16 @@ const ContactSection = () => {
             <div className="rounded-2xl p-8 md:p-10 bg-white/5 border border-white/10 backdrop-blur-sm">
               <h3 className="text-2xl font-semibold text-white mb-6">Send us a message</h3>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                action="https://formsubmit.co/chirantan1455@gmail.com" 
+                method="POST"
+                className="space-y-6"
+              >
+                {/* FormSubmit configuration */}
+                <input type="hidden" name="_subject" value="New Contact from Sledopyt AI Website" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-white/70 mb-2">
                     Your Name
@@ -605,8 +585,6 @@ const ContactSection = () => {
                     id="name"
                     name="name"
                     type="text"
-                    value={formData.name}
-                    onChange={handleChange}
                     placeholder="John Doe"
                     required
                     className="bg-black/50 border-white/20 text-white placeholder:text-white/30 focus:border-blue-500"
@@ -622,8 +600,6 @@ const ContactSection = () => {
                     id="email"
                     name="email"
                     type="email"
-                    value={formData.email}
-                    onChange={handleChange}
                     placeholder="john@example.com"
                     required
                     className="bg-black/50 border-white/20 text-white placeholder:text-white/30 focus:border-blue-500"
@@ -638,8 +614,6 @@ const ContactSection = () => {
                   <Textarea
                     id="message"
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
                     placeholder="Tell us about your project..."
                     required
                     rows={5}
@@ -650,21 +624,13 @@ const ContactSection = () => {
 
                 <Button 
                   type="submit" 
-                  disabled={isSubmitting}
                   className="w-full bg-white hover:bg-white/90 text-black font-semibold py-6 text-lg"
                   data-testid="contact-submit-btn"
                 >
-                  {isSubmitting ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <span className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin"></span>
-                      Sending...
-                    </span>
-                  ) : (
-                    <span className="flex items-center justify-center gap-2">
-                      Send Message
-                      <Send size={20} />
-                    </span>
-                  )}
+                  <span className="flex items-center justify-center gap-2">
+                    Send Message
+                    <Send size={20} />
+                  </span>
                 </Button>
               </form>
             </div>
