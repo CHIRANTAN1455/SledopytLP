@@ -163,14 +163,14 @@ const AgentsHero = () => {
 
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight tracking-tighter">
             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
-              Intelligence,
+              Sledo Agent
             </span>
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
-              Architected.
+              on a Click.
             </span>
             <br />
-            <span className="text-white/30 text-4xl lg:text-5xl">AI Agents at Scale.</span>
+            <span className="text-white/30 text-4xl lg:text-5xl">AI Automation at Scale.</span>
           </h1>
 
           <p className="text-lg md:text-xl text-white/50 mb-10 max-w-xl leading-relaxed">
