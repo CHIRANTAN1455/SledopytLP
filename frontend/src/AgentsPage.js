@@ -163,18 +163,18 @@ const AgentsHero = () => {
 
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight tracking-tighter">
             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
-              Zero
+              Intelligence,
             </span>
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
-              Gravity
+              Architected.
             </span>
             <br />
-            <span className="text-white/30 text-4xl lg:text-5xl">Automation.</span>
+            <span className="text-white/30 text-4xl lg:text-5xl">AI Agents at Scale.</span>
           </h1>
 
           <p className="text-lg md:text-xl text-white/50 mb-10 max-w-xl leading-relaxed">
-            Experience the fluidity of AI automation. 20+ ready-to-deploy agents for every business need. No code required.
+            Deploy autonomous AI agents that navigate the chaos of data. 20+ ready-to-deploy automations for every business need.
           </p>
 
           <div className="flex flex-wrap gap-4">
@@ -183,7 +183,7 @@ const AgentsHero = () => {
               className="bg-white hover:bg-white/90 text-black font-semibold px-8 py-6 text-lg group"
               data-testid="hero-deploy-btn"
             >
-              Start Experience
+              Initialize Protocol
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Link to="/#contact">
