@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Sledopyt AI — Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A static React (CRA + craco) site. Zero backend dependency.
 
-## Available Scripts
+## Local development
 
-In the project directory, you can run:
+```bash
+cd frontend
+yarn install
+yarn start            # http://localhost:3000
+```
 
-### `npm start`
+## Production build
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+yarn build            # outputs to ./build
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Deploy to Vercel
 
-### `npm test`
+This repo is pre-configured for Vercel.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Option A — Vercel Dashboard (no CLI)
 
-### `npm run build`
+1. Push this repo to GitHub (or GitLab / Bitbucket).
+2. Go to <https://vercel.com/new> and import the repo.
+3. **Root Directory:** `frontend`
+4. Framework Preset: **Create React App** (auto-detected via `vercel.json`).
+5. Build Command: `yarn build` (auto)
+6. Output Directory: `build` (auto)
+7. Click **Deploy**.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Option B — Vercel CLI
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm i -g vercel
+cd frontend
+vercel            # follow prompts
+vercel --prod     # production deploy
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Custom domain
 
-### `npm run eject`
+After your first deploy:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Open your project in Vercel → **Settings → Domains**.
+2. Add `sledopytai.com` and `www.sledopytai.com`.
+3. Vercel will show DNS records to add at your registrar (typically an `A` record `76.76.21.21` for the apex and a `CNAME` to `cname.vercel-dns.com` for `www`).
+4. SSL is auto-provisioned.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Environment variables
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+None required. The contact form posts directly to FormSubmit.co.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+If you later add a backend, add `REACT_APP_BACKEND_URL` in **Vercel → Settings → Environment Variables**.
 
-## Learn More
+## Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- All images and videos are served from `/public/assets/`, so they are bundled with the site.
+- SPA routing is handled by the rewrite rule in `vercel.json`.

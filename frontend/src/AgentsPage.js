@@ -92,7 +92,7 @@ const AgentsNavigation = () => {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group" data-testid="agents-logo">
             <img 
-              src="https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/khguvbti_logo.png" 
+              src="/assets/logo.png" 
               alt="Sledopyt AI Logo" 
               className="h-10 w-10"
             />
@@ -459,7 +459,7 @@ const VoiceAgentDemo = () => {
 
               <video 
                 ref={videoRef}
-                src="https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/sxl4bngd_EstateAgent.mp4"
+                src="/assets/EstateAgent.mp4"
                 className="w-full h-auto"
                 onEnded={() => setIsPlaying(false)}
                 onPlay={() => setIsPlaying(true)}
@@ -539,7 +539,7 @@ const AgentsFooter = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
             <img 
-              src="https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/khguvbti_logo.png" 
+              src="/assets/logo.png" 
               alt="Sledopyt AI Logo" 
               className="h-8 w-8"
             />

@@ -12,35 +12,32 @@ import { ParticleCanvas } from "./components/ui/particle-canvas";
 import { SingleImageCard } from "./components/ui/image-tiles";
 import AgentsPage from "./AgentsPage";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
 // Team members data
 const teamMembers = [
   {
     name: "Chirantan Pradhan",
     role: "CoFounder & CTO",
-    image: "https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/wlnhmrnh_Chirantan%20Pradhan.jpg"
+    image: "/assets/chirantan.jpg"
   },
   {
     name: "Udit Bhaskar",
     role: "CoFounder",
-    image: "https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/4gv8ubgw_Udit%20Bhasker.jpg"
+    image: "/assets/udit.jpg"
   },
   {
     name: "Shivyaa Sharma",
     role: "Tech Lead",
-    image: "https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/jgvop2ci_Shaivyaa%20Sharma.png"
+    image: "/assets/shivyaa.png"
   },
   {
     name: "Dev Arora",
     role: "Lead AI/ML Engineer",
-    image: "https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/2qzkt1k8_Dev%20Arora.jpg"
+    image: "/assets/dev.jpg"
   },
   {
     name: "Hardeep Singh",
     role: "Product & Marketing",
-    image: "https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/r9zwm7c6_Hardeep%20Singh.jpg"
+    image: "/assets/hardeep.jpg"
   }
 ];
 
@@ -111,7 +108,7 @@ const Navigation = () => {
             data-testid="logo"
           >
             <img 
-              src="https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/khguvbti_logo.png" 
+              src="/assets/logo.png" 
               alt="Sledopyt AI Logo" 
               className="h-10 w-10"
             />
@@ -332,7 +329,7 @@ const DeploymentSection = () => {
           >
             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900">
               <video 
-                src="https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/n9qwmbrj_sledo.mp4" 
+                src="/assets/sledo.mp4" 
                 autoPlay
                 loop
                 muted
@@ -649,7 +646,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
             <img 
-              src="https://customer-assets.emergentagent.com/job_ai-solutions-hub-49/artifacts/khguvbti_logo.png" 
+              src="/assets/logo.png" 
               alt="Sledopyt AI Logo" 
               className="h-8 w-8"
             />
