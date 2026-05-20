@@ -4,7 +4,7 @@ from datetime import datetime
 import json
 
 class SledopytAPITester:
-    def __init__(self, base_url="https://ai-solutions-hub-49.preview.emergentagent.com"):
+    def __init__(self, base_url="https://sledopyt-preview.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.tests_run = 0

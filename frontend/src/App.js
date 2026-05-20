@@ -317,7 +317,7 @@ const DeploymentSection = () => {
                 <p className="text-white/40">→ Initializing neural pathways...</p>
                 <p className="text-white/40">→ Connecting to inference cluster...</p>
                 <p className="text-green-400">✓ Model deployed successfully</p>
-                <p className="text-blue-400">⚡ Endpoint: api.sledopyt.ai/v3/agent</p>
+                <p className="text-blue-400">⚡ Endpoint: api.sledopytai.com/v3/agent</p>
               </div>
             </div>
           </motion.div>
@@ -495,7 +495,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Email Us</h4>
-                  <p className="text-white/50">hello@sledopyt.ai</p>
+                  <p className="text-white/50">hello@sledopytai.com</p>
                 </div>
               </div>
 
@@ -568,7 +568,7 @@ const ContactSection = () => {
               <h3 className="text-2xl font-semibold text-white mb-6">Send us a message</h3>
               
               <form 
-                action="https://formsubmit.co/chirantan1455@gmail.com" 
+                action="https://formsubmit.co/hello@sledopytai.com" 
                 method="POST"
                 className="space-y-6"
               >
