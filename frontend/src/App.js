@@ -111,7 +111,7 @@ const Navigation = () => {
             <img 
               src="/assets/logo.png" 
               alt="Sledopyt AI" 
-              className="h-10 w-auto"
+              className="h-12 sm:h-14 w-auto"
               data-testid="header-logo"
             />
           </motion.a>
@@ -649,7 +649,7 @@ const Footer = () => {
             <img 
               src="/assets/logo.png" 
               alt="Sledopyt AI" 
-              className="h-8 w-auto"
+              className="h-10 w-auto"
               data-testid="footer-logo"
             />
           </div>

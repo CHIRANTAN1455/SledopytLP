@@ -94,7 +94,7 @@ const AgentsNavigation = () => {
             <img 
               src="/assets/logo.png" 
               alt="Sledopyt AI" 
-              className="h-10 w-auto group-hover:opacity-80 transition-opacity"
+              className="h-12 sm:h-14 w-auto group-hover:opacity-80 transition-opacity"
             />
           </Link>
 
@@ -537,7 +537,7 @@ const AgentsFooter = () => {
             <img 
               src="/assets/logo.png" 
               alt="Sledopyt AI" 
-              className="h-8 w-auto"
+              className="h-10 w-auto"
             />
           </div>
 
