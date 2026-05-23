@@ -11,6 +11,7 @@ import { Toaster, toast } from "sonner";
 import { ParticleCanvas } from "./components/ui/particle-canvas";
 import { SingleImageCard } from "./components/ui/image-tiles";
 import AgentsPage from "./AgentsPage";
+import LogoIdeas from "./LogoIdeas";
 
 // Team members data
 const teamMembers = [
@@ -704,6 +705,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/agents" element={<AgentsPage />} />
+          <Route path="/logo-ideas" element={<LogoIdeas />} />
         </Routes>
       </BrowserRouter>
     </div>
