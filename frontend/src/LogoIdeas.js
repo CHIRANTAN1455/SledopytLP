@@ -18,7 +18,16 @@ const GENZ_LOGOS = [
   { id: "10-brutalist-zine", title: "10 — Brutalist Zine", desc: "Hi-contrast yellow, photocopy punk-flyer." },
 ];
 
-function LogoGrid({ items }) {
+const TREND_LOGOS = [
+  { id: "11-blurtail-wordmark", title: "11 — BlurTail Wordmark", desc: "Wordmark with gradient motion-blur trail." },
+  { id: "12-blurtail-letter-s", title: "12 — BlurTail 'S'", desc: "Solid S with ghosted afterimages fading off." },
+  { id: "13-blurtail-arrow", title: "13 — BlurTail Arrow", desc: "Cursor-arrow with soft vapor trail." },
+  { id: "14-scaler-S-bars", title: "14 — Scaler S-Bars", desc: "Letter S built from progressive vertical bars." },
+  { id: "15-scaler-stepped-stairs", title: "15 — Scaler Equalizer", desc: "Ascending bar-chart staircase above wordmark." },
+  { id: "16-scaler-footprint-path", title: "16 — Scaler Path", desc: "Stepped strokes that form a receding path." },
+];
+
+function LogoGrid({ items, light = false }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {items.map((l) => (
@@ -30,7 +39,7 @@ function LogoGrid({ items }) {
           data-testid={`logo-card-${l.id}`}
           className="group block border border-white/10 rounded-xl overflow-hidden bg-[#08080a] hover:border-[#4285F4]/60 transition-colors"
         >
-          <div className="aspect-square bg-black flex items-center justify-center overflow-hidden">
+          <div className={`aspect-square ${light ? "bg-white" : "bg-black"} flex items-center justify-center overflow-hidden`}>
             <img
               src={`/assets/logos/${l.id}.png`}
               alt={l.title}
@@ -82,6 +91,20 @@ export default function LogoIdeas() {
         <div className="mb-6">
           <p className="text-white/50 text-xs uppercase tracking-widest mb-4">/ gen-z directions</p>
           <LogoGrid items={GENZ_LOGOS} />
+        </div>
+
+        <div className="h-12" />
+
+        <div className="mb-6">
+          <p className="text-white/50 text-xs uppercase tracking-widest mb-4">
+            / 2025 trends — blurtails &amp; scalers
+          </p>
+          <p className="text-white/40 text-xs mb-4 max-w-2xl">
+            Inspired by the LogoLounge 2025 reports. BlurTails leave gradient motion
+            trails (mirrors Sledopyt = pathfinder). Scalers use progressive stepped
+            strokes for momentum and direction.
+          </p>
+          <LogoGrid items={TREND_LOGOS} light />
         </div>
 
         <p className="text-white/30 text-xs mt-12">
