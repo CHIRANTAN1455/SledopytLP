@@ -93,13 +93,9 @@ const AgentsNavigation = () => {
           <Link to="/" className="flex items-center gap-3 group" data-testid="agents-logo">
             <img 
               src="/assets/logo.png" 
-              alt="Sledopyt AI Logo" 
-              className="h-10 w-10"
+              alt="Sledopyt AI" 
+              className="h-10 w-auto group-hover:opacity-80 transition-opacity"
             />
-            <span className="text-2xl font-bold tracking-tight">
-              <span className="text-white group-hover:text-blue-400 transition-colors">Sledopyt</span>
-              <span className="text-blue-500"> AI</span>
-            </span>
           </Link>
 
           <div className="flex items-center gap-6">
@@ -540,11 +536,9 @@ const AgentsFooter = () => {
           <div className="flex items-center gap-3">
             <img 
               src="/assets/logo.png" 
-              alt="Sledopyt AI Logo" 
-              className="h-8 w-8"
+              alt="Sledopyt AI" 
+              className="h-8 w-auto"
             />
-            <span className="text-xl font-bold text-white">Sledopyt</span>
-            <span className="text-xl font-bold text-blue-500">AI</span>
           </div>
 
           <p className="text-white/30 text-sm font-mono">
