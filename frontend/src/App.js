@@ -127,6 +127,9 @@ const Navigation = () => {
             <Link to="/agents" className="text-white/60 hover:text-white transition-colors duration-200" data-testid="nav-agents">
               Agents
             </Link>
+            <Link to="/logo-ideas" className="text-white/60 hover:text-white transition-colors duration-200" data-testid="nav-logos">
+              Logos
+            </Link>
             <button onClick={() => scrollToSection('team')} className="text-white/60 hover:text-white transition-colors duration-200" data-testid="nav-team">
               Team
             </button>
