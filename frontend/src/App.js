@@ -15,14 +15,14 @@ import LogoIdeas from "./LogoIdeas";
 
 // Team members data
 const teamMembers = [
-  {
-    name: "Chirantan Pradhan",
-    role: "CoFounder & CTO",
-    image: "/assets/chirantan.jpg"
-  },
+  // {
+  //   name: "Chirantan Pradhan",
+  //   role: "CoFounder & CTO",
+  //   image: "/assets/chirantan.jpg"
+  // },
   {
     name: "Udit Bhaskar",
-    role: "CoFounder",
+    role: "Founder",
     image: "/assets/udit.jpg"
   },
   {
